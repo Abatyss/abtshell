@@ -61,6 +61,9 @@ int main(int argc, char *argv[]) {
         token = strtok(NULL, " ");
       }
       // Run program
+      if (args.size == 1 && strcmp(args.argsArray[0], "exit") == 0) {
+        exit(EXIT_SUCCESS);
+      }
       int rc = fork();
       if (rc < 0) {
         fprintf(stderr, "abtsh: Something went horribly wrong!");
@@ -70,6 +73,8 @@ int main(int argc, char *argv[]) {
         wait(NULL);
       }
     }
+    // Fix memory leak
+    free(args.argsArray);
   }
 
   return EXIT_SUCCESS;
